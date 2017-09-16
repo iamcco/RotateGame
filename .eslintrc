@@ -1,0 +1,8 @@
+{
+  extends: 'standard',
+  globals: {
+    __DEV__: false,
+    fetch: false,
+    navigator: false,
+  },
+}
