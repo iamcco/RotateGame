@@ -87,31 +87,29 @@ var TO_MAP = {
 
 var isRotating = 'stop';
 
-console.log(isRotating);
+var updateState = function updateState(state) {
+  isRotating = state;
+  console.log(isRotating);
+};
 
 var start = function start() {
   document.body.removeEventListener('click', start);
   if (isRotating === 'stop') {
-    isRotating = 'pending';
-    console.log(isRotating);
+    updateState('pending');
     // 开始转动
     circle.style.animation = 'rotate-start 2s ease-in';
     // 两秒后快速持续转动
     setTimeout(function () {
-      isRotating = 'waiting';
-      console.log(isRotating);
+      updateState('waiting');
       circle.style.animation = 'rotate-hold 0.1s linear infinite';
       setTimeout(function () {
         // 三秒后转动满满停止
-        isRotating = 'stoping';
-        console.log(isRotating);
+        updateState('stoping');
         var stopFrame = TO_MAP[Math.ceil(Math.random() * 4)];
-        console.log(stopFrame);
         circle.style.animation = stopFrame + ' 3.5s ease-out forwards';
         // 停止的时候提示
         setTimeout(function () {
-          isRotating = 'stop';
-          console.log(isRotating);
+          updateState('stop');
           var itemFour = querySelector('#' + stopFrame);
           itemFour.style.backgroundColor = '#d8e8c5';
         }, 3600);
@@ -119,6 +117,8 @@ var start = function start() {
     }, 2000);
   }
 };
+
+console.log(isRotating);
 
 document.body.addEventListener('click', start);
 
